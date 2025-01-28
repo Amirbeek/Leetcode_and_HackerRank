@@ -65,10 +65,26 @@
 #     return result
 
 
-def findMedian(arr):
-    # Write your code here
-    sorted_arr = sorted(arr)
-    print(arr)
-    return sorted_arr[int(len(arr)/2)]
+# # def findMedian(arr):
+# #     # Write your code here
+# #     sorted_arr = sorted(arr)
+#     print(arr)
+# #     return sorted_arr[int(len(arr)/2)]
+# #
+#  print(findMedian([0 ,1 ,2 ,4 ,6 ,5 ,3]))
+#
+#
+#
+#
+# def single_num(num):
+#     numbers = {}
+#     for n in num:
+#         if n in numbers:
+#             numbers[n] += 1
+#         else:
+#             numbers[n] = 1
+#
+#
+# print(single_num([4, 1, 2, 1, 2]))
 
-print(findMedian([0 ,1 ,2 ,4 ,6 ,5 ,3]))
+
