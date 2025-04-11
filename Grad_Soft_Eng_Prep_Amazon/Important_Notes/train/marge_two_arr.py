@@ -20,4 +20,6 @@ def marge_two(arr1: list[int], arr2: list[int]) -> Iterable[int]:
             m += 1
 
 
+
+
 print(marge_two([2, 3, 5], [1, 3, 6]))

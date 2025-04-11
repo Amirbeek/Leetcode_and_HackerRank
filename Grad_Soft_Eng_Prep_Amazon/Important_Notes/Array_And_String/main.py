@@ -121,4 +121,15 @@ def merge_two_arrays(arr1: list[int], arr2: list[int]):
     return result
 
 
+def merge_sort(arr):
+    if len(arr) < 2:
+        return arr
+    mid = len(arr) // 2
+    left, right = arr[:mid], arr[mid]
+    return merge_two_arrays(
+        merge_sort(left),
+        merge_sort(right)
+    )
+
+
 print(merge_two_arrays([2, 3, 5], [1, 3, 6]))

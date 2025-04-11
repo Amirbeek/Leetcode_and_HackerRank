@@ -5,10 +5,10 @@ class Node:
 
 
 def print_element(head: Node) -> None:
-    curr = head
-    while curr is not None:
-        print(curr.val)
-        curr = curr.next
+    if head is None:
+        return
+    print(head.val)
+    print_element(head.next)
 
 
 def find_middle(head: Node) -> None:
@@ -73,4 +73,5 @@ head = one
 # print_element(head)
 # reversed_head = reverse_list(head)
 print("\nDeleted List:")
-insert_val(head, 5)
+print_element(head)
+# insert_val(head, 5)
