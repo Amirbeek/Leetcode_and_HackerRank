@@ -14,13 +14,12 @@ def mergeSort(arr):
     len_ = len(arr)
     middle = len_ // 2
     left = arr[0: middle]
-    right = arr[middle]
+    right = arr[middle:]
 
     return merge(
         mergeSort(left),
         mergeSort(right)
     )
-
 
 def merge(left, right):
     result = []
@@ -65,3 +64,5 @@ def InsertionSort(arr: list):
             j -= 1
         arr[j + 1] = current_value
     return arr
+
+

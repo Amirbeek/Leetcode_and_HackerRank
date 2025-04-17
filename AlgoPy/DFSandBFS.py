@@ -33,188 +33,35 @@ class BinaryTree:
                     curr = curr.right
         return self
 
-    def remove(self, value):
-        if not self.root:
-            return False
+    def isBalanced(self):
+        def check(node):
+            if not node:
+                return 0
+            left = check(node.left)
+            right = check(node.right)
+            if left == -1 or right == -1 or abs(left - right) > 1:
+                return -1
+            return max(left, right) + 1
 
-        curr = self.root
-        parr = None
+        return check(self.root) != -1
 
-        # Search for the node to delete
-        while curr:
-            if value < curr.val:
-                parr = curr
-                curr = curr.left
-            elif value > curr.val:
-                parr = curr
-                curr = curr.right
-            else:
-                # Node with the value is found
-                if not curr.left and not curr.right:  # Case 1: No children
-                    if parr:  # If parent exists, update parent's pointer to None
-                        if parr.left == curr:
-                            parr.left = None
-                        else:
-                            parr.right = None
-                    else:
-                        self.root = None  # If the node to remove is the root
-                elif not curr.left:  # Case 2: Only right child
-                    if parr:
-                        if parr.left == curr:
-                            parr.left = curr.right
-                        else:
-                            parr.right = curr.right
-                    else:
-                        self.root = curr.right  # If the node to remove is the root
-                elif not curr.right:  # Case 3: Only left child
-                    if parr:
-                        if parr.left == curr:
-                            parr.left = curr.left
-                        else:
-                            parr.right = curr.left
-                    else:
-                        self.root = curr.left  # If the node to remove is the root
-                else:  # Case 4: Two children
-                    # Find the smallest node in the right subtree (in-order successor)
-                    succ_parent = curr
-                    succ = curr.right
-                    while succ.left:
-                        succ_parent = succ
-                        succ = succ.left
+    def bfs(self):
 
-                    # Replace current node's value with successor's value
-                    curr.val = succ.val
-
-                    # Now delete the in-order successor (it will have at most one child)
-                    if succ_parent.left == succ:
-                        succ_parent.left = succ.right
-                    else:
-                        succ_parent.right = succ.right
-                return True  # Successfully removed node
-        return False  # Value not found
-
-    def inorder(self, root):
-        if root:
-            self.inorder(root.left)
-            print(root.val, end=' ')
-            self.inorder(root.right)
-
-    def breadthFirstSearch(self):
-        if not self.root:
-            return []
-        curr = self.root
-        lists = []
-        queue = deque([curr])
-        while len(queue) > 0:
-            curr = queue.popleft()
-            lists.append(curr.val)
-            if curr.left:
-                queue.append(curr.left)
-
-            if curr.right:
-                queue.append(curr.right)
-        return lists
-
-    def breadthFirstSearchR(self, queue, lists):
-        if len(queue) == 0:
-            return lists
-        curr = queue.popleft()
-
-        lists.append(curr.val)
-        if curr.left:
-            queue.append(curr.left)
-        if curr.right:
-            queue.append(curr.right)
-
-        return self.breadthFirstSearchR(queue, lists)
-
-    def levelOrder(self, root) -> list[int]:
         result = []
-        i = 0
+        que = deque([self.root])
+        while len(que) > 0:
+            curr = que.popleft()
+            result.append(curr.val)
 
-        def BFS(root):
-            nonlocal i, result
-            if len(root):
-                return result
-            curr = root.popleft()
-            if curr:
-                result[i].append(curr.val)
-                root.append(curr.left)
-                root.append(curr.right)
-            return BFS(root)
+            if curr.left:
+                que.append(curr.left)
+            if curr.right:
+                que.append(curr.right)
 
-        BFS(deque([self.root]))
         return result
 
-    def DFSInorder(self):
-        return traverseInOrder(self.root, [])
 
-    def DFSPostOrder(self):
-        return traversePoOrder(self.root, [])
-
-    def DFSPreOrder(self):
-        return traversePreOrder(self.root, [])
-
-    def isValidBST(self, root) -> bool:
-        if not root:
-            return False
-        curr = root
-        queue = deque([curr])
-        v = []
-        while len(queue) > 0:
-            curr = queue.popleft()
-            if curr.left:
-                queue.append(curr.left)
-                v.append(curr.val)
-            else:
-                v.append(None)
-            if curr.right:
-                queue.append(curr.right)
-                v.append(curr.val)
-            else:
-                v.append(None)
-        print(v)
-
-    def isBalanced(self, root):
-        if root is None: return 0
-
-        left = self.isBalanced(root.left)
-        right = self.isBalanced(root.right)
-
-        if left is None and right is None:
-            return 0
-
-        if left is None:
-            return 1 + right
-
-        if right is None:
-            return 1 + left
-
-        print(left, right)
-        return
-
-
-def traverseInOrder(node, list):
-    if node:
-        traverseInOrder(node.left, list)
-        list.append(node.val)
-        traverseInOrder(node.right, list)
-
-    return list
-
-
-def traversePreOrder(node, list):
-    if node:
-        list.append(node.val)
-        traverseInOrder(node.left, list)
-        traverseInOrder(node.right, list)
-
-    return list
-
-
-def traversePoOrder(node, list):
-    if node:
-        traverseInOrder(node.left, list)
-        traverseInOrder(node.right, list)
-        list.append(node.val)
-    return list
+# Testing the tree
+bt = BinaryTree()
+bt.insert(5).insert(1).insert(4).insert(3).insert(6)
+print(bt.isBalanced())

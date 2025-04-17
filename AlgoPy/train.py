@@ -1,3 +1,4 @@
+from collections import deque
 def isValid(s: str) -> bool:
     stack = []
     bas = {
@@ -29,5 +30,30 @@ def maxProfit(prices: list[int]) -> None:
     return maxPro
 
 
-print(maxProfit([7, 1, 5, 3, 6, 4]))
+def majorityElement(nums: list[int]) -> int:
+    bas = {}
+    res = 0
+    majority = 0
+    for num in nums:
+        bas[num] = 1 + bas.get(num, 0)
+        if bas[num] > majority:
+            res = num
+            majority = bas[num]
+    return res
+
+
+# def decodeString( s: str) -> str:
+#     result = ''
+#     stack = []
+#     i =0
+#     while i < len(s):
+#         if s[i] != "]":
+#             stack.append(s[i])
+#         else:
+
+
+
+
+# print(decodeString("3[a]2[bc]"))
+# print(maxProfit([7, 1, 5, 3, 6, 4]))
 # print(isValid("(("))
